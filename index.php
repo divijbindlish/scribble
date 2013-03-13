@@ -28,33 +28,21 @@
 		
 		//get all form data using for each loop
 		$data = "";
-		$flag = true;
 		foreach($_POST as $key => $value){
 			if($key!="regis_submit"){
-				if($value==""){
-					echo "empty";
-					$flag=false;
-					break;
-				}
 				$data=$data.",'".$value."'";
 			}
 		}
 		$data=substr($data,1);
 
 		//create new record in table users
-		if($flag){
-			$sql = "INSERT INTO users VALUES (".$data.");";
-			if(mysql_query($sql,$con)){
-				$_SESSION["user"]=$_POST["uname_regis"];
-				setcookie("user",$_POST["uname_regis"],time()+3600);
-				$sql = "CREATE TABLE ".$_POST['uname_regis']."(serialno INT NOT NULL AUTO_INCREMENT, list1item VARCHAR(30), PRIMARY KEY (serialno));";
-				echo $sql;
-				$check = mysql_query($sql,$con);
-				if($check) echo "successful";
-				else echo mysql_error();
-			}
+		$sql = "INSERT INTO users VALUES (".$data.");";
+		if(mysql_query($sql,$con)){
+			$_SESSION["user"]=$_POST["uname_regis"];
+			setcookie("user",$_POST["uname_regis"],time()+3600);
+			$sql = "CREATE TABLE ".$_POST['uname_regis']."(serialno INT NOT NULL AUTO_INCREMENT, list1item VARCHAR(30), PRIMARY KEY (serialno));";
+			mysql_query($sql,$con);
 		}
-
 	}
 
 	/*
@@ -71,10 +59,6 @@
 		if($_POST['pass_login']==$pass){
 			$_SESSION["user"]=$uname;
 			setcookie("user",$uname,time()+3600);
-			echo "successful";
-		}
-		else{
-			echo "failed";
 		}
 	}
 
@@ -83,23 +67,8 @@
 	*/
 	if(isset($_POST['task_submit'])){
 		$item = $_POST['task_field'];
-		if($item!=""){
-			//$sql = "SELECT COUNT(*) FROM ".$_SESSION["user"].";";
-			//$check = mysql_query($sql,$con);
-			//$row = mysql_fetch_array($check,MYSQL_ASSOC);
-			//if($row){
-			//	$no = $row['COUNT(*)']+1;
-			//}"su
-			$sql = "INSERT INTO ".$_SESSION["user"]."(list1item) VALUES ('".$item."');";
-			$check = mysql_query($sql,$con);
-			if($check){
-				echo "successful";
-			}
-			else{
-				echo mysql_error();
-			}
-		}
-		else echo "empty";
+		$sql = "INSERT INTO ".$_SESSION["user"]."(list1item) VALUES ('".$item."');";
+		mysql_query($sql,$con);
 	}
 
 	/* 
@@ -108,13 +77,7 @@
 	if(isset($_POST["remove_button"])){
 		$no = $_POST["id"];
 		$sql = "DELETE FROM ".$_SESSION["user"]." WHERE serialno='".$no."';";
-		$check = mysql_query($sql,$con);
-		if($check){
-			echo "successful";
-		}
-		else{
-			echo "failed";
-		}
+		mysql_query($sql,$con);
 	}
 
 	/*
@@ -123,7 +86,6 @@
 	if(isset($_POST["logout_submit"])){
 		session_destroy();
 		setcookie("user","",time()-3600);
-		header('Location: todo.php');
 	}
 
 ?>
