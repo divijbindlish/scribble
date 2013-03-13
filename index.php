@@ -59,6 +59,10 @@
 		if($_POST['pass_login']==$pass){
 			$_SESSION["user"]=$uname;
 			setcookie("user",$uname,time()+3600);
+			echo "success";
+		}
+		else{
+			echo "fail";
 		}
 	}
 
@@ -86,6 +90,9 @@
 	if(isset($_POST["logout_submit"])){
 		session_destroy();
 		setcookie("user","",time()-3600);
+
+		//start the new session for the new user
+		session_start();
 	}
 
 ?>
@@ -114,6 +121,8 @@
 				Password: <input type="password" id="pass_login" name="pass_login" class="text_field"/><br/>
 				<input type="submit" name="login_submit" id="login_submit" class="button" value="submit"/>
 			</form>
+		</div>
+		<div id="notification" class="container">
 		</div>
 		<div id="main_container" class="container">
 			<div id="add_task">
