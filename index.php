@@ -32,7 +32,7 @@
 		foreach($_POST as $key => $value){
 			if($key!="regis_submit"){
 				if($value==""){
-					echo "failed";
+					echo "empty";
 					$flag=false;
 					break;
 				}
@@ -47,9 +47,11 @@
 			if(mysql_query($sql,$con)){
 				$_SESSION["user"]=$_POST["uname_regis"];
 				setcookie("user",$_POST["uname_regis"],time()+3600);
-				$sql = "CREATE TABLE ".$_POST['uname_regis']."(serialno INT, list1item VARCHAR(30));";
-				mysql_query($sql,$con);
-				echo "successful";
+				$sql = "CREATE TABLE ".$_POST['uname_regis']."(serialno INT NOT NULL AUTO_INCREMENT, list1item VARCHAR(30), PRIMARY KEY (serialno));";
+				echo $sql;
+				$check = mysql_query($sql,$con);
+				if($check) echo "successful";
+				else echo mysql_error();
 			}
 		}
 
@@ -82,19 +84,19 @@
 	if(isset($_POST['task_submit'])){
 		$item = $_POST['task_field'];
 		if($item!=""){
-			$sql = "SELECT COUNT(*) FROM ".$_SESSION["user"].";";
-			$check = mysql_query($sql,$con);
-			$row = mysql_fetch_array($check,MYSQL_ASSOC);
-			if($row){
-				$no = $row['COUNT(*)']+1;
-			}
-			$sql = "INSERT INTO ".$_SESSION["user"]." VALUES (".$no.",'".$item."');";
+			//$sql = "SELECT COUNT(*) FROM ".$_SESSION["user"].";";
+			//$check = mysql_query($sql,$con);
+			//$row = mysql_fetch_array($check,MYSQL_ASSOC);
+			//if($row){
+			//	$no = $row['COUNT(*)']+1;
+			//}"su
+			$sql = "INSERT INTO ".$_SESSION["user"]."(list1item) VALUES ('".$item."');";
 			$check = mysql_query($sql,$con);
 			if($check){
 				echo "successful";
 			}
 			else{
-				echo "failed";
+				echo mysql_error();
 			}
 		}
 		else echo "empty";
@@ -168,7 +170,7 @@
 					while($row = mysql_fetch_array($check,MYSQL_ASSOC)){
 						$no = $row['serialno'];
 						$content = $row['list1item'];
-						$content = "<div id='".$no."' class='list_item'><form method='POST' action='#'><input type='submit' value='' class='remove_button hidden' name='remove_button' id='".$no."btn'/><input type='hidden' name='id' value='$no'/></form><input type='checkbox' class='check' id='".$no."cb'/>$content</div><br/>";
+						$content = "<div id='".$no."' class='list_item'><form method='POST' action='#'><input type='submit' value='' class='remove_button hidden' name='remove_button' id='".$no."btn'/><input type='hidden' name='id' value='$no'/></form><input type='checkbox' class='check' id='".$no."cb'/>$content</div>";
 						echo $content;
 					}
 				?>
