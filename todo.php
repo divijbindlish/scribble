@@ -23,6 +23,8 @@
 				<input type="submit" name="login_submit" id="login_submit" class="button" value="submit"/>
 			</form>
 		</div>
+		<div id="notification" class="container">
+		</div>
 		<div id="main_container" class="container">
 			<div id="add_task">
 				<form id="add_form" action="index.php" method="POST">
@@ -34,7 +36,6 @@
 				</form>
 			</div>
 			<div id="main_list">
-
 			</div>
 		</div>
 	</body>

@@ -5,17 +5,10 @@ $(document).ready(function(){
 		return ((input-0)==input && input%1==0);
 	}
 
-	//if user is already logged in show list else show login form
-	if(document.cookie.indexOf('user') < 0){
-		$('#login_container').show().siblings().hide();
-	}
-	else{
-		$('#main_container').show().siblings().hide();
-	}
+	$('#main_container').hide();
 
 	//to strike or unstrike the tasks depending on the checkbox
 	$('.check').click(function(){
-		console.log($(this).attr('id'));
 		var identifier = $(this).attr('id').substring(0,2);
 		if(!isInt(identifier)) identifier = identifier.substring(0,1);
 		var use1,use2;
@@ -45,16 +38,18 @@ $(document).ready(function(){
 			data: {uname_login: $('#uname_login').val(), pass_login: $('#pass_login').val(), login_submit: "log"},
 			datatype: "html",
 			success: function(response){
-				$('#notification').html(response.substring(0,4));
-				if(response=="fail"){
+				var test = response.substring(0,4);
+				if(test=="fail"){
 					$('#notification').html("Incorrect Username or Password");
 					$('#uname_login').val('');
 					$('#pass_login').val('');
 				}
-				else if(response=="success"){
+				else if(test=="succ"){
+					var data = response.substring(7);
 					$('#notification').html("Login Successful");
 					$('#login_container').hide();
 					$('#main_container').show();
+					$('#main_list').html(data);
 				}
 			},
 			error: function(response){
@@ -73,7 +68,15 @@ $(document).ready(function(){
 			data: {regis_submit: "regis", name_regis: $('#name_regis').val(), uname_regis: $('#uname_regis').val(), email_regis: $('#email_regis').val(), pass_regis: $('#pass_regis').val()},
 			datatype: "html",
 			success: function(response){
-				$('#main_container').show().siblings().hide();
+				if(response=="success"){
+					$('#notification').html("Welcome "+$('#uname_regis').val());
+					$('#login_container').hide();
+					$('#main_container').show();
+					$('#main_list').html("");
+				}
+			},
+			error: function(response){
+				$('#notification').html("Some error with script");
 			}
 		});
 	});
@@ -88,7 +91,15 @@ $(document).ready(function(){
 			data: {logout_submit: "logout"},
 			datatype: "html",
 			success: function(response){
-				$('#main_container').hide().siblings().show();
+				$('#main_container').hide();
+				$('#main_container').html("");
+				$('#login_container').show();
+				$('#notification').html("Log out successful");
+				$('input[type="text"]').val('');
+				$('input[type="password"]').val('');
+			},
+			error: function(response){
+				$("#notification").html("Some error with script");
 			}
 		});
 	});
@@ -103,15 +114,24 @@ $(document).ready(function(){
 			data: {task_submit: "task", task_field: $('#task_field').val()},
 			datatype: "html",
 			success: function(response){
-				console.log("partial success");
+				var test = response.substring(0,4);
+				if(test=="fail"){
+					$('#notification').html("Something went wrong");
+				}
+				else{
+					var data = response.substring(7);
+					$('#notification').html("Item addition successful");
+					$('#task_field').val('');
+					$('#main_list').html(data);
+				}
 			}
 		});
 	});
 
 	//ajax code for remove button
-	$('remove_button').click(function(e){
+	$('.remove_button').click(function(e){
 		e.preventDefault();
-		console.log("relad stopped");
+		console.log("reload stopped");
 		var identifier = $(this).attr('id').substring(0,2);
 		if(!isInt(identifier)) identifier = identifier.substring(0,1);
 		$.ajax({
