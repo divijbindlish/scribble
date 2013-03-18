@@ -28,7 +28,7 @@
 		while($row = mysql_fetch_array($check,MYSQL_ASSOC)){
 			$no = $row['serialno'];
 			$content = $row['list1item'];
-			$imp = "<div id='".$no."' class='list_item'><form method='POST' action='index.php'><input type='submit' value='' class='remove_button hidden' name='remove_button btn' id='".$no."btn'/></form><input type='checkbox' class='check' id='".$no."cb'/><span>".$content."</span></div>";
+			$imp = "<div id='".$no."' class='list_item'><form method='POST' action='index.php'><input type='submit' value='&#10006' class='remove_button hidden' name='remove_button btn' id='".$no."btn'/></form><input type='checkbox' class='check' id='".$no."cb'/><span>".$content."</span></div>";
 			$data=$data.$imp."\n";
 		}
 		return $data;

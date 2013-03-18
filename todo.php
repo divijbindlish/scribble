@@ -15,6 +15,16 @@
 			<div id="heading">
 				<h1>Cool Lists...</h1>
 			</div> 
+			<div id="user_container" class="hidden">
+				<span id="user_name">
+					<h2>test</h2>
+				</span>
+				<span id="running_out">
+					<form id="logout_form" action="index.php" method="POST">
+						<input type="submit" id="logout_submit" name="logout_submit" class="btn" value="log out"/>
+					</form>
+			</span>
+			</div>
 		</div>
 		<div id="content">
 			<div id="auth_container">		
@@ -50,11 +60,8 @@
 			<div id="main_container" class="hidden">
 				<div id="add_task">
 					<form id="add_form" action="index.php" method="POST">
-						Add Task: <input type="text" id="task_field" maxlength='30' name="task_field" class="text_field"/> 
+						Add Task: &nbsp &nbsp &nbsp &nbsp &nbsp <input type="text" id="task_field" maxlength='30' name="task_field" class="text_field"/><br/>
 						<input type="submit" name="task_submit" id="task_submit" class="btn" value="Add"/>
-					</form>
-					<form id="logout_form" action="index.php" method="POST">
-						<input type="submit" id="logout_submit" name="logout_submit" class="btn" value="log out"/>
 					</form>
 				</div>
 				<div id="list_container">

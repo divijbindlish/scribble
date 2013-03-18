@@ -71,10 +71,14 @@ $(document).ready(function(){
 				}
 				else if(test=="succ"){
 					var data = response.substring(7);
+					var user = $('#uname_login').val();
+					$('#user_container').fadeIn('fast');
 					$('#auth_container').fadeOut('fast');
 					$('#main_container').fadeIn('fast');
 					$('#info_container').fadeOut('fast');
 					$('#list_container').html(data);
+					$('#header>#heading').css("left","10%");
+					$('#user_name').html("<h2>"+user+"</h2>");
 					dyna();
 				}
 			},
@@ -94,9 +98,13 @@ $(document).ready(function(){
 			datatype: "html",
 			success: function(response){
 				if(response=="success"){
+					var user = $('#uname_regis').val();
 					$('#auth_container').fadeOut('fast');
 					$('#main_container').fadeIn('fast');
 					$('#info_container').fadeOut('fast');
+					$('#header>#heading').css("left","10%");
+					$('#user_name').html("<h2>"+user+"</h2>");
+					$('#user_container').fadeIn('slow');
 				}
 			},
 			error: function(response){
@@ -114,12 +122,15 @@ $(document).ready(function(){
 			data: {logout_submit: "logout"},
 			datatype: "html",
 			success: function(response){
+				$('#user_container').fadeOut('fast');
 				$('#main_container').fadeOut('fast');
 				$('#list_container').html("");
 				$('#auth_container').fadeIn('fast');
 				$('#info_container').fadeIn('fast');
 				$('input[type="text"]').val('');
 				$('input[type="password"]').val('');
+				$('#header>#heading').css('left','43%');
+				$('#user_name').html("");
 			},
 			error: function(response){
 				$("#notification").html("Some error with script");
