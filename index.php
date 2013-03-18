@@ -18,6 +18,7 @@
 	$sql = "CREATE TABLE users(name VARCHAR(30), uname VARCHAR(30), email VARCHAR(30), pwd VARCHAR(30));";
 	mysql_query($sql,$con);
 
+	//function to return all the data in the sql table
 	function getData($name){
 		global $con;
 		$sql = "SELECT * FROM ".$name.";";
@@ -27,7 +28,7 @@
 		while($row = mysql_fetch_array($check,MYSQL_ASSOC)){
 			$no = $row['serialno'];
 			$content = $row['list1item'];
-			$imp = "<div id='".$no."' class='list_item'><form method='POST' action='index.php'><input type='submit' value='' class='remove_button hidden' name='remove_button' id='".$no."btn'/></form><input type='checkbox' class='check' id='".$no."cb'/>".$content."</div>";
+			$imp = "<div id='".$no."' class='list_item'><form method='POST' action='index.php'><input type='submit' value='' class='remove_button hidden' name='remove_button btn' id='".$no."btn'/></form><input type='checkbox' class='check' id='".$no."cb'/><span>".$content."</span></div>";
 			$data=$data.$imp."\n";
 		}
 		return $data;
@@ -55,6 +56,7 @@
 			mysql_query($sql,$con);
 			echo "success";
 		}
+		else echo "fail";
 	}
 
 	/*
@@ -99,7 +101,12 @@
 	if(isset($_POST["remove_button"])){
 		$no = $_POST["id"];
 		$sql = "DELETE FROM ".$_SESSION["user"]." WHERE serialno='".$no."';";
-		mysql_query($sql,$con);
+		if(mysql_query($sql,$con)){
+			echo "success";
+		}
+		else{
+			echo "fail";
+		}
 	}
 
 	/*

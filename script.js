@@ -5,24 +5,50 @@ $(document).ready(function(){
 		return ((input-0)==input && input%1==0);
 	}
 
-	$('#main_container').hide();
+	//function created to add listener for every new item created
+	function dyna(){
 
-	//to strike or unstrike the tasks depending on the checkbox
-	$('.check').click(function(){
-		var identifier = $(this).attr('id').substring(0,2);
-		if(!isInt(identifier)) identifier = identifier.substring(0,1);
-		var use1,use2;
-		use1="#"+identifier;
-		use2="#"+identifier+"btn";
-		if($(this).is(':checked')){
-			$(use1).addClass('done');
-			$(use2).fadeIn('slow');
-		}
-		else{
-			$(use1).removeClass('done');
-			$(use2).fadeOut('slow');
-		}
-	});
+		//to strike or unstrike the tasks depending on the checkbox
+		$('.check').click(function(){
+			var identifier = $(this).attr('id').substring(0,2);
+			if(!isInt(identifier)) identifier = identifier.substring(0,1);
+			var use1,use2;
+			use1="#"+identifier;
+			use2="#"+identifier+"btn";
+			if($(this).is(':checked')){
+				$(use1).addClass('done');
+				$(use2).fadeIn('fast');
+			}
+			else{
+				$(use1).removeClass('done');
+				$(use2).fadeOut('fast');
+			}
+		});
+		
+		//ajax code for remove button
+		$('.remove_button').click(function(e){
+			e.preventDefault();
+			var identifier = $(this).attr('id').substring(0,2);
+			if(!isInt(identifier)) identifier = identifier.substring(0,1);
+			$.ajax({
+				type: "POST",
+				url: "index.php",
+				data: {remove_button: "remove", id: identifier},
+				datatype: "html",
+				success: function(response){
+					if(response=="fail"){
+						$('#notification').html("Removal of item failed");
+					}
+					else{
+						$('#'+identifier).remove();
+						$('#notification').html("Removal of item successful");
+					}
+				},
+				error: function(){
+				}
+			});
+		});
+	}
 
 	/**
 		ajax code begins
@@ -31,7 +57,6 @@ $(document).ready(function(){
 	//ajax code for login button
 	$('#login_submit').click(function(e){
 		e.preventDefault();
-		console.log("reload stopped");
 		$.ajax({
 			type: "POST",
 			url: "index.php",
@@ -46,10 +71,11 @@ $(document).ready(function(){
 				}
 				else if(test=="succ"){
 					var data = response.substring(7);
-					$('#notification').html("Login Successful");
-					$('#login_container').hide();
-					$('#main_container').show();
-					$('#main_list').html(data);
+					$('#auth_container').fadeOut('fast');
+					$('#main_container').fadeIn('fast');
+					$('#info_container').fadeOut('fast');
+					$('#list_container').html(data);
+					dyna();
 				}
 			},
 			error: function(response){
@@ -61,7 +87,6 @@ $(document).ready(function(){
 	//ajax code for register button
 	$('#regis_submit').click(function(e){
 		e.preventDefault();
-		console.log("reload stopped");
 		$.ajax({
 			type: "POST",
 			url: "index.php",
@@ -69,10 +94,9 @@ $(document).ready(function(){
 			datatype: "html",
 			success: function(response){
 				if(response=="success"){
-					$('#notification').html("Welcome "+$('#uname_regis').val());
-					$('#login_container').hide();
-					$('#main_container').show();
-					$('#main_list').html("");
+					$('#auth_container').fadeOut('fast');
+					$('#main_container').fadeIn('fast');
+					$('#info_container').fadeOut('fast');
 				}
 			},
 			error: function(response){
@@ -84,17 +108,16 @@ $(document).ready(function(){
 	//ajax code for logout button
 	$('#logout_submit').click(function(e){
 		e.preventDefault();
-		console.log("reload stopped");
 		$.ajax({
 			type: "POST",
 			url: "index.php",
 			data: {logout_submit: "logout"},
 			datatype: "html",
 			success: function(response){
-				$('#main_container').hide();
-				$('#main_container').html("");
-				$('#login_container').show();
-				$('#notification').html("Log out successful");
+				$('#main_container').fadeOut('fast');
+				$('#list_container').html("");
+				$('#auth_container').fadeIn('fast');
+				$('#info_container').fadeIn('fast');
 				$('input[type="text"]').val('');
 				$('input[type="password"]').val('');
 			},
@@ -107,7 +130,6 @@ $(document).ready(function(){
 	//ajax code for add button
 	$('#task_submit').click(function(e){
 		e.preventDefault();
-		console.log("reload stopped");
 		$.ajax({
 			type: "POST",
 			url: "index.php",
@@ -122,26 +144,39 @@ $(document).ready(function(){
 					var data = response.substring(7);
 					$('#notification').html("Item addition successful");
 					$('#task_field').val('');
-					$('#main_list').html(data);
+					$('#list_container').html(data);
+					dyna();
 				}
 			}
 		});
 	});
 
-	//ajax code for remove button
-	$('.remove_button').click(function(e){
-		e.preventDefault();
-		console.log("reload stopped");
-		var identifier = $(this).attr('id').substring(0,2);
-		if(!isInt(identifier)) identifier = identifier.substring(0,1);
-		$.ajax({
-			type: "POST",
-			url: "index.php",
-			data: {remove_button: "remove", id: identifier},
-			datatype: "html",
-			success: function(response){
-				console.log("partial success");
-			}
+	//code for showing sign up and login forms
+	$('#sign').click(function(){
+		$('#login_container').fadeOut('fast');
+		$('#regis_container').fadeIn('fast');
+		$('#auth_container').css("height","50%");
+	});
+	$('#log').click(function(){
+		$('#login_container').fadeIn('fast');
+		$('#regis_container').fadeOut('fast');
+		$('#auth_container').css("height","30%")
+	});
+
+	//code for footer
+	$('.links').mouseenter(function(){
+		var id = $(this).attr('id');
+		if(id=="ab"){
+			$('#about').fadeIn('fast');
+		}
+		if(id=="con"){
+			$('#contact').fadeIn('fast');
+		}
+		if(id=="copy"){
+			$('#copyright').fadeIn('fast');
+		}
+		$('.links').mouseleave(function(){
+			$('.footer_notification').fadeOut('fast');
 		});
 	});
 
