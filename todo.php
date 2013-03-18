@@ -13,7 +13,7 @@
 	<body>
 		<div id="header">
 			<div id="heading">
-				<h1>Cool Lists...</h1>
+				<h1>Awesome Notes</h1>
 			</div> 
 			<div id="user_container" class="hidden">
 				<span id="user_name">
@@ -34,7 +34,7 @@
 						Password: &nbsp &nbsp &nbsp &nbsp &nbsp<input type="password" id="pass_login" name="pass_login" maxlength='30' class="text_field"/><br/>
 						<input type="submit" name="login_submit" id="login_submit" class="btn" value="Log in"/><br/>
 					</form>
-					<p>New Member? <span id="sign">Sign Up</span> for Cool Lists now.</p>
+					<p>New Member? <span id="sign">Sign Up</span> for Awesome Notes now.</p>
 				</div>
 				<div id="regis_container" class="hidden container">
 					<form id="register_form" action="index.php" method="POST">
@@ -48,9 +48,9 @@
 				</div>
 			</div>
 			<div id="info_container">
-				<h2>Welcome to Cool Lists...</h2>
-				<p>Cool Lists... is a simple app which allows you, the user to create and manage different lists. These lists may contain any information that the user desires to store.</p>
-				<p>The innovative features of Cool Lists... are:</p>
+				<h2>Welcome to Awesome Notes</h2>
+				<p>Awesome Notes is a simple app which allows you, the user to create and manage different lists. These lists may contain any information that the user desires to store.</p>
+				<p>The innovative features of Awesome Notes:</p>
 				<ul>
 					<li>Includes a checkbox for all tasks that allow user to cross out all completed tasks</li>
 					<li>Allows the user to add and remove tasks at will</li>

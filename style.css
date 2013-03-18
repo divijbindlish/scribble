@@ -327,7 +327,7 @@ input[type="checkbox"]{
 /** Style for add form begins **/
 #add_task{
 	color: #333333;
-	position: absolute;
+	position: fixed;
 	top: 37%;
 	left: 53%;
 	background-color: #dddddd;
