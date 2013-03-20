@@ -131,11 +131,25 @@ body{
 	top: 22%;
 	left: 62%;
 	width: 30%;
-	height: 30%;
+	height: 40%;
 	background-color: #dddddd;
 	border: 1px solid #111111;
 	box-shadow: 0px 3px 10px #353535;
 	-webkit-transition: height linear 0.5s;
+}
+#remember{
+	margin-left: 0px;
+}
+#auth_notification{
+	color: #333333;
+	position: absolute;
+	top: -40px;
+	left: 25%;
+	width: 50%;
+	height: 40px;
+	background-color: #dddddd;
+	border: 1px solid #111111;
+	box-shadow: 0px 3px 10px #353535;
 }
 #login_container{
 	margin-top: 8%;

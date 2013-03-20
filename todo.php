@@ -1,92 +1,129 @@
-<!Doctype HTML>
-<html>
-	<head>
-		<title>
-			To-Do List
-		</title>
-		<link rel="stylesheet" href="style.css"/>
-		<link rel="shortcut icon" href=""/>
-		<link href='http://fonts.googleapis.com/css?family=Fenix' rel='stylesheet'>
-		<script src = "jquery.js"></script>
-		<script src = "script.js"></script>
-	</head>
-	<body>
-		<div id="header">
-			<div id="heading">
-				<h1>Awesome Notes</h1>
-			</div> 
-			<div id="user_container" class="hidden">
-				<span id="user_name">
-					<h2>test</h2>
-				</span>
-				<span id="running_out">
-					<form id="logout_form" action="index.php" method="POST">
-						<input type="submit" id="logout_submit" name="logout_submit" class="btn" value="log out"/>
-					</form>
-			</span>
-			</div>
-		</div>
-		<div id="content">
-			<div id="auth_container">		
-				<div id="login_container">
-					<form id="login_form" action="index.php" method="POST">
-						Username: &nbsp &nbsp &nbsp &nbsp <input type="text" id="uname_login" name="uname_login" maxlength='30' class="text_field"/><br/>
-						Password: &nbsp &nbsp &nbsp &nbsp &nbsp<input type="password" id="pass_login" name="pass_login" maxlength='30' class="text_field"/><br/>
-						<input type="submit" name="login_submit" id="login_submit" class="btn" value="Log in"/><br/>
-					</form>
-					<p>New Member? <span id="sign">Sign Up</span> for Awesome Notes now.</p>
-				</div>
-				<div id="regis_container" class="hidden container">
-					<form id="register_form" action="index.php" method="POST">
-						Name: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<input type="text" id="name_regis" name="name_regis" maxlength='30' class="text_field"/><br/>
-						Username: &nbsp &nbsp &nbsp <input type="text" id="uname_regis" name="uname_regis" maxlength='30' class="text_field"/><br/>
-						Email: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<input type="text" id="email_regis" name="email_regis" maxlength='30' class="text_field"/><br/>
-						Password: &nbsp &nbsp &nbsp &nbsp<input type="password" id="pass_regis" name="pass_regis" maxlength='30' class="text_field"/><br/>
-						<input type="submit" name="regis_submit" id="regis_submit" class="btn" value="Register"/>
-					</form>
-					<p>Old User? <span id="log">Sign In</span>. 
-				</div>
-			</div>
-			<div id="info_container">
-				<h2>Welcome to Awesome Notes</h2>
-				<p>Awesome Notes is a simple app which allows you, the user to create and manage different lists. These lists may contain any information that the user desires to store.</p>
-				<p>The innovative features of Awesome Notes:</p>
-				<ul>
-					<li>Includes a checkbox for all tasks that allow user to cross out all completed tasks</li>
-					<li>Allows the user to add and remove tasks at will</li>
-					<li>Built using ajax - that means no more stupid page reloads.</li> 
-				</ul> 
-			</div>
-			<div id="main_container" class="hidden">
-				<div id="add_task">
-					<form id="add_form" action="index.php" method="POST">
-						Add Task: &nbsp &nbsp &nbsp &nbsp &nbsp <input type="text" id="task_field" maxlength='30' name="task_field" class="text_field"/><br/>
-						<input type="submit" name="task_submit" id="task_submit" class="btn" value="Add"/>
-					</form>
-				</div>
-				<div id="list_container">
-				</div>
-			</div>
-		</div>
-		<div id="copyright" class="footer_notification hidden">
-			<p>Does anybody actually read this stuff... :p</p>
-		</div>
-		<div id="about" class="footer_notification hidden"> 
-				<p>I am a novice programmer currently learning under SDSLabs...</p>
-		</div>
-		<div id="contact" class="footer_notification hidden">
-			<p>Phone Number: +91-9910050857<br/>E-mail: dvjbndlsh93@gmail.com<br/></p>
-		</div>
-		<div id="footer">
-			<span class="links" id="copy">
-				Copyright
-			</span>
-			<span class="links" id="ab">
-				About Me
-			</span>
-			<span class="links" id="con">
-				Contact Me
-			</span>
-		</div>
-	</body>
-</html>
+<?php
+	
+	//start the session
+	session_start();
+
+	//create connection with mysql database
+	$con = mysql_connect("localhost","root","hello123");
+
+	//check whether connection is made
+	if (!$con){
+  	die("Failed to connect to MySQL: " . mysql_error());
+  }
+
+  //use database todo_list
+  mysql_select_db('todo_list');
+
+  //create a table for storing information about all the users
+	$sql = "CREATE TABLE users(name VARCHAR(30), uname VARCHAR(30), email VARCHAR(30), pwd VARCHAR(30));";
+	mysql_query($sql,$con);
+
+	//function to return all the data in the sql table
+	function getData($name){
+		global $con;
+		$sql = "SELECT * FROM ".$name.";";
+		$check = mysql_query($sql,$con);
+		if(!$check) return "";
+		$data="";
+		while($row = mysql_fetch_array($check,MYSQL_ASSOC)){
+			$no = $row['serialno'];
+			$content = $row['list1item'];
+			$imp = "<div id='".$no."' class='list_item'><form method='POST' action='index.php'><input type='submit' value='&#10006' class='remove_button hidden' name='remove_button btn' id='".$no."btn'/></form><input type='checkbox' class='check' id='".$no."cb'/><span>".$content."</span></div>";
+			$data=$data.$imp."\n";
+		}
+		return $data;
+	}
+
+	/*
+		Code for using cookies begins
+	*/
+	if(isset($_POST['usingcookie'])){
+		$uname = $_POST['username'];
+		$data = getData($uname);
+		echo "success".$data;
+	}
+
+	/*
+		Code for registering new user begins
+	*/
+	if(isset($_POST['regis_submit'])){
+		
+		//get all form data using for each loop
+		$data = "";
+		foreach($_POST as $key => $value){
+			if($key!="regis_submit"){
+				$data=$data.",'".$value."'";
+			}
+		}
+		$data=substr($data,1);
+
+		//create new record in table users
+		$sql = "INSERT INTO users VALUES (".$data.");";
+		if(mysql_query($sql,$con)){
+			$_SESSION["user"]=$_POST["uname_regis"];
+			$sql = "CREATE TABLE ".$_POST['uname_regis']."(serialno INT NOT NULL AUTO_INCREMENT, list1item VARCHAR(30), PRIMARY KEY (serialno));";
+			mysql_query($sql,$con);
+			echo "success";
+		}
+		else echo "fail";
+	}
+
+	/*
+		Code for Login Form Begins
+	*/
+	if(isset($_POST['login_submit'])){
+		$uname = $_POST['uname_login'];
+		$sql = "SELECT pwd FROM users WHERE uname = '$uname';";
+		$check = mysql_query($sql,$con);
+		$row = mysql_fetch_array($check,MYSQL_ASSOC);
+		if($row){
+			$pass = $row['pwd'];
+		}
+		if($_POST['pass_login']==$pass){
+			$_SESSION["user"]=$uname;
+			echo "success".getData($uname);
+		}
+		else{
+			echo "fail";
+		}
+	}
+
+	/*
+		Code for adding new list item begins
+	*/
+	if(isset($_POST['task_submit'])){
+		$item = $_POST['task_field'];
+		$uname = $_SESSION["user"];
+		$sql = "INSERT INTO ".$_SESSION["user"]."(list1item) VALUES ('".$item."');";
+		$check = mysql_query($sql,$con);
+		if($check){
+			echo "success".getData($uname);
+		}
+		else{
+			echo "fail";
+		}
+	}
+
+	/* 
+		Code for removing an item begins
+	*/
+	if(isset($_POST["remove_button"])){
+		$no = $_POST["id"];
+		$sql = "DELETE FROM ".$_SESSION["user"]." WHERE serialno='".$no."';";
+		if(mysql_query($sql,$con)){
+			echo "success";
+		}
+		else{
+			echo "fail";
+		}
+	}
+
+	/*
+		Code for logout begins
+	*/
+	if(isset($_POST["logout_submit"])){
+		session_destroy();
+		session_start();
+	}
+
+?>
