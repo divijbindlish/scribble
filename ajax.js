@@ -67,14 +67,22 @@ $(document).ready(function(){
 				datatype: "html",
 				success: function(response){
 					if(response=="fail"){
-						$('#notification').html("Removal of item failed");
+						$('#notification').html("<p>Removal of item failed</p>");
+						$('#notification').fadeIn("fast");
+						setTimeout(function(){
+							$('#notification').fadeOut();
+						},1000);
 					}
 					else{
 						$('#'+identifier).remove();
-						$('#notification').html("Removal of item successful");
 					}
 				},
 				error: function(){
+					$('#notification').html("<p>Something wrong with the script.</p>");
+					$('#notification').fadeIn("fast");
+					setTimeout(function(){
+						$('#notification').fadeOut();
+					},1000);
 				}
 			});
 		});
@@ -87,64 +95,105 @@ $(document).ready(function(){
 	//ajax code for login button
 	$('#login_submit').click(function(e){
 		e.preventDefault();
-		$.ajax({
-			type: "POST",
-			url: "todo.php",
-			data: {uname_login: $('#uname_login').val(), pass_login: $('#pass_login').val(), login_submit: "log"},
-			datatype: "html",
-			success: function(response){
-				var test = response.substring(0,4);
-				if(test=="fail"){
-					$('#notification').html("Incorrect Username or Password");
-					$('#uname_login').val('');
-					$('#pass_login').val('');
-				}
-				else if(test=="succ"){
-					var data = response.substring(7);
-					var user = $('#uname_login').val();
-					if($('#remember').is(':checked')){
-						var c_name = "user";
-						document.cookie=c_name+"="+user;
+		if(!$(this).hasClass("disabled")){
+			$.ajax({
+				type: "POST",
+				url: "todo.php",
+				data: {uname_login: $('#uname_login').val(), pass_login: $('#pass_login').val(), login_submit: "log"},
+				datatype: "html",
+				success: function(response){
+					var test = response.substring(0,4);
+					if(test=="fail"){
+						$('#notification').html("<p>Incorrect Username or Password</p>");
+						$('#notification').fadeIn("fast");
+						setTimeout(function(){
+							$('#notification').fadeOut('slow');
+						},2000);
+						$('#uname_login').val('');
+						$('#pass_login').val('');
+						$('#login_submit').addClass('disabled');
+						$('#tick1').fadeOut('fast');
+						$('#tick2').fadeOut('fast');
 					}
-					$('#user_container').fadeIn('fast');
-					$('#auth_container').fadeOut('fast');
-					$('#main_container').fadeIn('fast');
-					$('#info_container').fadeOut('fast');
-					$('#list_container').html(data);
-					$('#header>#heading').css("left","10%");
-					$('#user_name').html("<h2>"+user+"</h2>");
-					dyna();
+					else if(test=="succ"){
+						var data = response.substring(7);
+						var user = $('#uname_login').val();
+						if($('#remember').is(':checked')){
+							var c_name = "user";
+							document.cookie=c_name+"="+user;
+						}
+						$('#user_container').fadeIn('fast');
+						$('#auth_container').fadeOut('fast');
+						$('#main_container').fadeIn('fast');
+						$('#info_container').fadeOut('fast');
+						$('#list_container').html(data);
+						$('#header>#heading').css("left","10%");
+						$('#user_name').html("<h2>"+user+"</h2>");
+						dyna();
+					}
+				},
+				error: function(response){
+					$('#notification').html("<p>Something wrong with the script.</p>");
+					$('#notification').fadeIn("fast");
+					setTimeout(function(){
+						$('#notification').fadeOut();
+					},1000);
 				}
-			},
-			error: function(response){
-				$('#notification').html("Some error with script");
-			}
-		});
+			});
+		}
+		else{
+			$('#notification').html("<p>Please fill all the entries correctly.</p>");
+			$('#notification').fadeIn("fast");
+			setTimeout(function(){
+				$('#notification').fadeOut();
+			},1000);
+		}
 	});
 
 	//ajax code for register button
 	$('#regis_submit').click(function(e){
 		e.preventDefault();
-		$.ajax({
-			type: "POST",
-			url: "todo.php",
-			data: {regis_submit: "regis", name_regis: $('#name_regis').val(), uname_regis: $('#uname_regis').val(), email_regis: $('#email_regis').val(), pass_regis: $('#pass_regis').val()},
-			datatype: "html",
-			success: function(response){
-				if(response=="success"){
-					var user = $('#uname_regis').val();
-					$('#auth_container').fadeOut('fast');
-					$('#main_container').fadeIn('fast');
-					$('#info_container').fadeOut('fast');
-					$('#header>#heading').css("left","10%");
-					$('#user_name').html("<h2>"+user+"</h2>");
-					$('#user_container').fadeIn('slow');
+		if(!$(this).hasClass('disabled')){
+			$.ajax({
+				type: "POST",
+				url: "todo.php",
+				data: {regis_submit: "regis", name_regis: $('#name_regis').val(), uname_regis: $('#uname_regis').val(), email_regis: $('#email_regis').val(), pass_regis: $('#pass_regis').val()},
+				datatype: "html",
+				success: function(response){
+					if(response=="success"){
+						var user = $('#uname_regis').val();
+						$('#auth_container').fadeOut('fast');
+						$('#main_container').fadeIn('fast');
+						$('#info_container').fadeOut('fast');
+						$('#header>#heading').css("left","10%");
+						$('#user_name').html("<h2>"+user+"</h2>");
+						$('#user_container').fadeIn('slow');
+					}
+					else{
+						$('#auth_notification').html("<p>Some error occurred</p>");
+						$('#auth_notification').fadeIn('fast');
+						for($i=1; $i<6; $i++){
+							$('#tick'+i).fadeOut('fast');
+						}
+						$('#regis_submit').fadeOut('fast');
+					}
+				},
+				error: function(response){
+					$('#notification').html("<p>Something wrong with the script.</p>");
+					$('#notification').fadeIn("fast");
+					setTimeout(function(){
+						$('#notification').fadeOut();
+					},1000);			
 				}
-			},
-			error: function(response){
-				$('#notification').html("Some error with script");
-			}
-		});
+			});
+		}
+		else{
+			$('#notification').html("<p>Please fill all the entries correctly</p>");
+			$('#notification').fadeIn("fast");
+			setTimeout(function(){
+				$('#notification').fadeOut();
+			},1000);
+		}
 	});
 
 	//ajax code for logout button
@@ -166,9 +215,15 @@ $(document).ready(function(){
 				$('#header>#heading').css('left','43%');
 				$('#user_name').html("");
 				document.cookie="user=deleted; expires="+new Date(0).toUTCString();
+				$('#login_submit').addClass('disabled');
+				$('#regis_submit').addClass('disabled');
 			},
 			error: function(response){
-				$("#notification").html("Some error with script");
+				$("#notification").html("<p>Something wrong with the script.</p>");
+				$('#notification').fadeIn("fast");
+				setTimeout(function(){
+					$('#notification').fadeOut();
+				},1000);
 			}
 		});
 	});
@@ -176,27 +231,44 @@ $(document).ready(function(){
 	//ajax code for add button
 	$('#task_submit').click(function(e){
 		e.preventDefault();
-		$.ajax({
-			type: "POST",
-			url: "todo.php",
-			data: {task_submit: "task", task_field: $('#task_field').val()},
-			datatype: "html",
-			success: function(response){
-				var test = response.substring(0,4);
-				if(test=="fail"){
-					$('#notification').html("Something went wrong");
+		if(!$(this).hasClass('disabled')){
+			$.ajax({
+				type: "POST",
+				url: "todo.php",
+				data: {task_submit: "task", task_field: $('#task_field').val()},
+				datatype: "html",
+				success: function(response){
+					var test = response.substring(0,4);
+					if(test=="fail"){
+						$('#notification').html("<p>Unable to add task.</p>");
+						$('#notification').fadeIn("fast");
+					setTimeout(function(){
+						$('#notification').fadeOut();
+					},1000);
+					}
+					else{
+						var data = response.substring(7);
+						$('#task_field').val('');
+						$('#list_container').html(data);
+						$('#task_submit').addClass('disabled;')
+						dyna();
+					}
+				},
+				error: function(){
+					$('#notification').html("<p>Something wrong with the script.</p>");
+					$('#notification').fadeIn("fast");
+					setTimeout(function(){
+						$('#notification').fadeOut();
+					},1000);
 				}
-				else{
-					var data = response.substring(7);
-					$('#notification').html("Item addition successful");
-					$('#task_field').val('');
-					$('#list_container').html(data);
-					dyna();
-				}
-			},
-			error: function(){
-				console.log("shit got fucked up");
-			}
-		});
+			});
+		}
+		else{
+			$('#notification').html("<p>Please add some task.</p>");
+			$('#notification').fadeIn("fast");
+			setTimeout(function(){
+				$('#notification').fadeOut();
+			},1000);
+		}
 	});
 });

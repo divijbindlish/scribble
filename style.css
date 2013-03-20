@@ -130,23 +130,29 @@ body{
 	position: absolute;
 	top: 22%;
 	left: 62%;
-	width: 30%;
+	width: 35%;
 	height: 40%;
 	background-color: #dddddd;
 	border: 1px solid #111111;
 	box-shadow: 0px 3px 10px #353535;
 	-webkit-transition: height linear 0.5s;
 }
+#auth_container>p{
+	margin-left: 1%;
+}
 #remember{
 	margin-left: 0px;
+}
+#auth_notification>p{
+	margin-left: 6%;
 }
 #auth_notification{
 	color: #333333;
 	position: absolute;
 	top: -40px;
-	left: 25%;
-	width: 50%;
-	height: 40px;
+	left: 17%;
+	width: 60%;
+	height: 45px;
 	background-color: #dddddd;
 	border: 1px solid #111111;
 	box-shadow: 0px 3px 10px #353535;
@@ -261,7 +267,7 @@ input[type="password"]:focus{
      -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
           box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.btn .disabled{
+.btn.disabled{
   cursor: default;
   background-image: none;
   opacity: 0.65;
@@ -353,4 +359,24 @@ input[type="checkbox"]{
 	margin-left: 35%;
 	width: 100px;
 	text-align: center;
+}
+#notification{
+	position: fixed;
+	height: 7%;
+	width: 20%;
+	left: 40%;
+	top: 10%;
+	z-index: 100;
+	display: none;
+	color: #333333;
+	background-color: #dddddd;
+	border: 1px solid #111111;
+	box-shadow: 0px 3px 10px #353535;
+}
+#notification>p{
+	margin-left: 5%;
+}
+.tick,
+.cross{
+	cursor: default;
 }

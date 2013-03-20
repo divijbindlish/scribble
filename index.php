@@ -27,6 +27,8 @@
 			</span>
 			</div>
 		</div>
+		<div id="notification">
+		</div>
 		<div id="content">
 			<div id="auth_container">
 				<div id="auth_notification" class="hidden">
@@ -36,7 +38,7 @@
 						Username: &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="uname_login" name="uname_login" maxlength='30' class="text_field"/><span id="cross1" class="cross hidden">&#10006;</span><span id="tick1" class="tick hidden">&#x2714;</span><br/>
 						Password: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="pass_login" name="pass_login" maxlength='30' class="text_field"/><span id="cross2" class="cross hidden">&#10006;</span><span id="tick2" class="tick hidden">&#x2714;</span><br/>
 						<input type="checkbox" name="remember" id="remember"/> Remember Me<br/><br/>
-						<input type="submit" name="login_submit" id="login_submit" class="btn" value="Log in"/><br/>
+						<input type="submit" name="login_submit" id="login_submit" class="btn disabled" value="Log in"/><br/>
 					</form>
 					<p>New Member? <span id="sign">Sign Up</span> for Awesome Notes now.</p>
 				</div>
@@ -47,7 +49,7 @@
 						Email: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" id="email_regis" name="email_regis" maxlength='30' class="text_field"/><span id="cross3" class="cross hidden">&#10006;</span><span id="tick3" class="tick hidden">&#x2714;</span><br/>
 						Password: &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="pass_regis" name="pass_regis" maxlength='30' class="text_field"/><span id="cross4" class="cross hidden">&#10006;</span><span id="tick4" class="tick hidden">&#x2714;</span><br/>
 						Confirm: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="confirm_regis" name="confirm_regis" maxlength='30' class="text_field"/><span id="cross5" class="cross hidden">&#10006;</span><span id="tick5" class="tick hidden">&#x2714;</span><br/> 
-						<input type="submit" name="regis_submit" id="regis_submit" class="btn" value="Register"/>
+						<input type="submit" name="regis_submit" id="regis_submit" class="btn disabled" value="Register"/>
 					</form>
 					<p>Old User? <span id="log">Sign In</span>. 
 				</div>
@@ -66,7 +68,7 @@
 				<div id="add_task">
 					<form id="add_form" action="todo.php" method="POST">
 						Add Task: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="task_field" maxlength='30' name="task_field" class="text_field"/><br/>
-						<input type="submit" name="task_submit" id="task_submit" class="btn" value="Add"/>
+						<input type="submit" name="task_submit" id="task_submit" class="btn disabled" value="Add"/>
 					</form>
 				</div>
 				<div id="list_container">
