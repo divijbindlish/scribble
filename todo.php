@@ -1,10 +1,11 @@
 <?php
-	
+
 	//start the session
 	session_start();
+    $config = include './config.php';
 
 	//create connection with mysql database
-	$con = mysql_connect("localhost","root","hello123");
+	$con = mysql_connect($config['DB_HOST'],$config['DB_USER'],$config['DB_PASS']);
 
 	//check whether connection is made
 	if (!$con){
@@ -12,7 +13,7 @@
   }
 
   //use database todo_list
-  mysql_select_db('todo_list');
+  mysql_select_db($config['DB_NAME']);
 
   //create a table for storing information about all the users
 	$sql = "CREATE TABLE users(name VARCHAR(30), uname VARCHAR(30), email VARCHAR(30), pwd VARCHAR(30));";
@@ -47,7 +48,7 @@
 		Code for registering new user begins
 	*/
 	if(isset($_POST['regis_submit'])){
-		
+
 		//get all form data using for each loop
 		$data = "";
 		foreach($_POST as $key => $value){
@@ -104,7 +105,7 @@
 		}
 	}
 
-	/* 
+	/*
 		Code for removing an item begins
 	*/
 	if(isset($_POST["remove_button"])){
