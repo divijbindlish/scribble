@@ -1,98 +1,98 @@
 <!Doctype HTML>
 <html>
-	<head>
-		<title>
-			To-Do List
-		</title>
-		<link rel="stylesheet" href="css/style.css"/>
-		<link rel="shortcut icon" href=""/>
-		<script src = "js/jquery.js"></script>
-		<script src = "js/script.js"></script>
-		<script src="js/ajax.js"></script>
-	</head>
-	<body>
-		<div id="header">
-			<div id="heading">
-				<h1>Awesome Notes</h1>
-			</div>
-			<div id="user_container" class="hidden">
-				<span id="user_name">
-					<h2>test</h2>
-				</span>
-				<span id="running_out">
-					<form id="logout_form" action="todo.php" method="POST">
-						<input type="submit" id="logout_submit" name="logout_submit" class="btn" value="log out"/>
-					</form>
-			</span>
-			</div>
-		</div>
-		<div id="notification">
-		</div>
-		<div id="content">
-			<div id="auth_container">
-				<div id="auth_notification" class="hidden">
-				</div>
-				<div id="login_container">
-					<form id="login_form" action="todo.php" method="POST">
-						Username: &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="uname_login" name="uname_login" maxlength='30' class="text_field"/><span id="cross1" class="cross hidden">&#10006;</span><span id="tick1" class="tick hidden">&#x2714;</span><br/>
-						Password: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="pass_login" name="pass_login" maxlength='30' class="text_field"/><span id="cross2" class="cross hidden">&#10006;</span><span id="tick2" class="tick hidden">&#x2714;</span><br/>
-						<input type="checkbox" name="remember" id="remember"/> Remember Me<br/><br/>
-						<input type="submit" name="login_submit" id="login_submit" class="btn disabled" value="Log in"/><br/>
-					</form>
-					<p>New Member? <span id="sign">Sign Up</span> for Awesome Notes now.</p>
-				</div>
-				<div id="regis_container" class="hidden container">
-					<form id="register_form" action="todo.php" method="POST">
-						Name: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" id="name_regis" name="name_regis" maxlength='30' class="text_field"/><span id="cross1" class="cross hidden">&#10006;</span><span id="tick1" class="tick hidden">&#x2714;</span><br/>
-						Username: &nbsp; &nbsp; &nbsp; <input type="text" id="uname_regis" name="uname_regis" maxlength='30' class="text_field"/><span id="cross2" class="cross hidden">&#10006;</span><span id="tick2" class="tick hidden">&#x2714;</span><br/>
-						Email: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" id="email_regis" name="email_regis" maxlength='30' class="text_field"/><span id="cross3" class="cross hidden">&#10006;</span><span id="tick3" class="tick hidden">&#x2714;</span><br/>
-						Password: &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="pass_regis" name="pass_regis" maxlength='30' class="text_field"/><span id="cross4" class="cross hidden">&#10006;</span><span id="tick4" class="tick hidden">&#x2714;</span><br/>
-						Confirm: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="confirm_regis" name="confirm_regis" maxlength='30' class="text_field"/><span id="cross5" class="cross hidden">&#10006;</span><span id="tick5" class="tick hidden">&#x2714;</span><br/>
-						<input type="submit" name="regis_submit" id="regis_submit" class="btn disabled" value="Register"/>
-					</form>
-					<p>Old User? <span id="log">Sign In</span>.
-				</div>
-			</div>
-			<div id="info_container">
-				<h2>Welcome to Awesome Notes</h2>
-				<p>Awesome Notes is a simple app which allows you, the user to create and manage different lists. These lists may contain any information that the user desires to store.</p>
-				<p>The innovative features of Awesome Notes:</p>
-				<ul>
-					<li>Includes a checkbox for all tasks that allow user to cross out all completed tasks</li>
-					<li>Allows the user to add and remove tasks at will</li>
-					<li>Built using ajax - that means no more stupid page reloads.</li>
-				</ul>
-			</div>
-			<div id="main_container" class="hidden">
-				<div id="add_task">
-					<form id="add_form" action="todo.php" method="POST">
-						Add Task: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="task_field" maxlength='30' name="task_field" class="text_field"/><br/>
-						<input type="submit" name="task_submit" id="task_submit" class="btn disabled" value="Add"/>
-					</form>
-				</div>
-				<div id="list_container">
-				</div>
-			</div>
-		</div>
-		<div id="copyright" class="footer_notification hidden">
-			<p>Does anybody actually read this stuff... :p</p>
-		</div>
-		<div id="about" class="footer_notification hidden">
-				<p>I am a novice programmer currently learning under SDSLabs...</p>
-		</div>
-		<div id="contact" class="footer_notification hidden">
-			<p>Phone Number: +91-9910050857<br/>E-mail: dvjbndlsh93@gmail.com<br/></p>
-		</div>
-		<div id="footer">
-			<span class="links" id="copy">
-				Copyright
-			</span>
-			<span class="links" id="ab">
-				About Me
-			</span>
-			<span class="links" id="con">
-				Contact Me
-			</span>
-		</div>
-	</body>
+  <head>
+    <title>
+      To-Do List
+    </title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="shortcut icon" href=""/>
+    <script src = "js/jquery.js"></script>
+    <script src = "js/script.js"></script>
+    <script src="js/ajax.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="heading">
+        <h1>Awesome Notes</h1>
+      </div>
+      <div id="user_container" class="hidden">
+        <span id="user_name">
+          <h2>test</h2>
+        </span>
+        <span id="running_out">
+          <form id="logout_form" action="todo.php" method="POST">
+            <input type="submit" id="logout_submit" name="logout_submit" class="btn" value="log out"/>
+          </form>
+      </span>
+      </div>
+    </div>
+    <div id="notification">
+    </div>
+    <div id="content">
+      <div id="auth_container">
+        <div id="auth_notification" class="hidden">
+        </div>
+        <div id="login_container">
+          <form id="login_form" action="todo.php" method="POST">
+            Username: &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="uname_login" name="uname_login" maxlength='30' class="text_field"/><span id="cross1" class="cross hidden">&#10006;</span><span id="tick1" class="tick hidden">&#x2714;</span><br/>
+            Password: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="pass_login" name="pass_login" maxlength='30' class="text_field"/><span id="cross2" class="cross hidden">&#10006;</span><span id="tick2" class="tick hidden">&#x2714;</span><br/>
+            <input type="checkbox" name="remember" id="remember"/> Remember Me<br/><br/>
+            <input type="submit" name="login_submit" id="login_submit" class="btn disabled" value="Log in"/><br/>
+          </form>
+          <p>New Member? <span id="sign">Sign Up</span> for Awesome Notes now.</p>
+        </div>
+        <div id="regis_container" class="hidden container">
+          <form id="register_form" action="todo.php" method="POST">
+            Name: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" id="name_regis" name="name_regis" maxlength='30' class="text_field"/><span id="cross1" class="cross hidden">&#10006;</span><span id="tick1" class="tick hidden">&#x2714;</span><br/>
+            Username: &nbsp; &nbsp; &nbsp; <input type="text" id="uname_regis" name="uname_regis" maxlength='30' class="text_field"/><span id="cross2" class="cross hidden">&#10006;</span><span id="tick2" class="tick hidden">&#x2714;</span><br/>
+            Email: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" id="email_regis" name="email_regis" maxlength='30' class="text_field"/><span id="cross3" class="cross hidden">&#10006;</span><span id="tick3" class="tick hidden">&#x2714;</span><br/>
+            Password: &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="pass_regis" name="pass_regis" maxlength='30' class="text_field"/><span id="cross4" class="cross hidden">&#10006;</span><span id="tick4" class="tick hidden">&#x2714;</span><br/>
+            Confirm: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="password" id="confirm_regis" name="confirm_regis" maxlength='30' class="text_field"/><span id="cross5" class="cross hidden">&#10006;</span><span id="tick5" class="tick hidden">&#x2714;</span><br/>
+            <input type="submit" name="regis_submit" id="regis_submit" class="btn disabled" value="Register"/>
+          </form>
+          <p>Old User? <span id="log">Sign In</span>.
+        </div>
+      </div>
+      <div id="info_container">
+        <h2>Welcome to Awesome Notes</h2>
+        <p>Awesome Notes is a simple app which allows you, the user to create and manage different lists. These lists may contain any information that the user desires to store.</p>
+        <p>The innovative features of Awesome Notes:</p>
+        <ul>
+          <li>Includes a checkbox for all tasks that allow user to cross out all completed tasks</li>
+          <li>Allows the user to add and remove tasks at will</li>
+          <li>Built using ajax - that means no more stupid page reloads.</li>
+        </ul>
+      </div>
+      <div id="main_container" class="hidden">
+        <div id="add_task">
+          <form id="add_form" action="todo.php" method="POST">
+            Add Task: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" id="task_field" maxlength='30' name="task_field" class="text_field"/><br/>
+            <input type="submit" name="task_submit" id="task_submit" class="btn disabled" value="Add"/>
+          </form>
+        </div>
+        <div id="list_container">
+        </div>
+      </div>
+    </div>
+    <div id="copyright" class="footer_notification hidden">
+      <p>Does anybody actually read this stuff... :p</p>
+    </div>
+    <div id="about" class="footer_notification hidden">
+        <p>I am a novice programmer currently learning under SDSLabs...</p>
+    </div>
+    <div id="contact" class="footer_notification hidden">
+      <p>Phone Number: +91-9910050857<br/>E-mail: dvjbndlsh93@gmail.com<br/></p>
+    </div>
+    <div id="footer">
+      <span class="links" id="copy">
+        Copyright
+      </span>
+      <span class="links" id="ab">
+        About Me
+      </span>
+      <span class="links" id="con">
+        Contact Me
+      </span>
+    </div>
+  </body>
 </html>
