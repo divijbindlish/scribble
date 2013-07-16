@@ -2,7 +2,7 @@
 
 	//start the session
 	session_start();
-    $config = include './config.php';
+    $config = include './config/config.php';
 
 	//create connection with mysql database
 	$con = mysql_connect($config['DB_HOST'],$config['DB_USER'],$config['DB_PASS']);
