@@ -37,7 +37,7 @@
     $q = $db->query("INSERT INTO users VALUES ($data)");
     if($q){
       $db->query("CREATE TABLE ".$_POST['uname_regis']."(serialno INT NOT NULL AUTO_INCREMENT, list1item VARCHAR(30), PRIMARY KEY (serialno))");
-      $_SESSION["user"] = $_POST["uname_regis"]
+      $_SESSION["user"] = $_POST["uname_regis"];
       echo "success";
     }
     else
