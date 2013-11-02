@@ -1,7 +1,3 @@
-Awesome Notes
-=============
+#Scribble
 
-Made it again to add mysql
-
-Will keep pushing for further UI improvements and data validation
-
+  A web application to take simple todo notes. Written in PHP. Includes features for register and log in.
